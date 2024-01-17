@@ -1,3 +1,88 @@
-article{
-    width: 200px;
+
+.jeux{
+    width: 12.5rem;
+    height: 15rem;
+   
+    border:2px solid;
+    margin: 10px;
+    display:flex;
+    flex-direction: column;
+    
+
 }
+.jeux img{
+height: 65%;
+width: 100%; 
+margin:0px;
+justify-content: start;
+}
+
+.plateformes img{
+    height: 75%;
+    width: 20%;
+    margin:0px;
+    justify-content: end;
+}
+
+
+.jeux h2{
+    text-align: center;
+    margin:0px;
+    justify-content: center;
+}
+
+nav li img{
+height: 100%;
+width: 10%;
+}
+
+nav li {
+height: 25px;
+width: 250px;
+}
+
+div.conteneur{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 1fr 98fr 1fr; 
+    grid-template-areas:
+      "entete  entete   "
+      "menu     principal"
+      "baspage   baspage "
+}
+
+.entete{
+    grid-area: entete;
+    display:flex;
+    flex-direction: row;
+    
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.entete img{
+    height: 100%;
+    width: 5%;
+}
+
+nav{
+    grid-area: menu;
+    display:flex;
+    flex-direction:column;
+    align-content:stretch;  
+}
+
+
+
+
+.principal{
+    grid-area: principal;
+    display: flex;
+    flex-direction: row;
+    justify-content: start; 
+    align-items: start;
+    
+    flex-wrap: wrap; 
+   
+}
+
