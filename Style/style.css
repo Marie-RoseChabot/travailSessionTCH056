@@ -9,6 +9,7 @@
     flex-direction: column;
 
     border-radius: 0.5rem;
+    background-color: #a79e84;
 
 
 }
@@ -52,6 +53,10 @@ display: flex;
 text-align: center;
 justify-content: start;
 }
+nav li>a {
+    color:azure;
+
+}
 
 div.conteneur{
     min-height: 100vh;
@@ -72,10 +77,14 @@ div.conteneur{
     
     justify-content: space-between; 
     align-items: center;
+    background-color: #454140;
 }
 
 .entete img{
     width: 2.5rem;
+}
+.entete a{
+    color: azure;
 }
 
 nav{
@@ -83,7 +92,8 @@ nav{
     display:flex;
     flex-direction:column;
     align-content:stretch;
-    border-right: 0.1rem solid;;  
+    border-right: 0.1rem solid;
+    background-color: #454140;  
 }
 
 .liste{
@@ -96,7 +106,8 @@ nav{
     grid-area: principal;
     display: flex;
     flex-direction: column;
-     
+    background-color: #7a3b2e;
+    min-height: 100vh;    
    
 }
 
@@ -108,4 +119,10 @@ nav{
     flex-direction: row;
     justify-content: center;
     border-top: 0.1rem solid;
+    background-color: #454140;
+    color: azure;
+    border-color: black;
+}
+.deroulant {
+    color: azure;
 }
