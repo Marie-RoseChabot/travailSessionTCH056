@@ -7,9 +7,11 @@
     margin: 10px;
     display:flex;
     flex-direction: column;
+    justify-self: center;
     
 
 }
+
 .jeux img{
 height: 65%;
 width: 100%; 
@@ -30,6 +32,7 @@ justify-content: start;
     margin:0px;
     justify-content: center;
 }
+
 
 nav li img{
 height: 100%;
@@ -75,19 +78,23 @@ nav{
     align-content:stretch;  
 }
 
+.liste{
+    display: grid;
+    width: 540px;
+    grid-template-columns: 120px 120px 120px;
+    align-items: start;
+    justify-content: space-between;
+}
 
 
-
-.principal{
+.principal {
     grid-area: principal;
     display: flex;
-    flex-direction: row;
-    justify-content: start; 
-    align-items: start;
-    
-    flex-wrap: wrap; 
+    flex-direction: column;
+     
    
 }
+
 
 .baspage {
     height: 1rem;
