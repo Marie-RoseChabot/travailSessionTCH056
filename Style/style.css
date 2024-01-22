@@ -10,7 +10,6 @@
 
     border-radius: 0.5rem;
 
-    
 
 }
 
@@ -88,11 +87,8 @@ nav{
 }
 
 .liste{
-    display: grid;
-    width: 540px;
-    grid-template-columns: 120px 120px 120px;
-    align-items: start;
-    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 
