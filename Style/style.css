@@ -92,4 +92,7 @@ nav{
 .baspage {
     height: 1rem;
     grid-area: baspage;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
