@@ -73,18 +73,18 @@ let listeJeux=[ {
 }
 ]
 
-let categorie=[
+let listeCategorie=[
 
 {
     "idCategorie":1,
     "nom": "Action",
-    "url":'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.gamekult.com%2Fguide-achat%2Fjeux%2Faction-aventure.html&psig=AOvVaw2PSIqlBLnokH-s7WCx1RQI&ust=1706919463728000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCICh0NSwi4QDFQAAAAAdAAAAABAI'
+    "url":'https://image.jeuxvideo.com/medias-md/151309/1513093768-1916-card.jpg'
 },
 
 {
     "idCategorie":2,
     "nom": "Aventure",
-    "url":'https://www.google.com/url?sa=i&url=https%3A%2F%2Fleclaireur.fnac.com%2Fselection%2Fcp49206-notre-selection-des-meilleurs-jeux-video-daventure%2F&psig=AOvVaw2ZM8-SWJiSihJNLoRarkov&ust=1706919783618000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNDuke2xi4QDFQAAAAAdAAAAABAF'
+    "url":'https://static.fnac-static.com/multimedia/Images/FD/Comete/135576/CCP_IMG_1200x800/1778074.jpg'
 },
 
 {
@@ -96,7 +96,7 @@ let categorie=[
 {
     "idCategorie":4,
     "nom": "Strategie",
-    "url":'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.redbull.com%2Fch-fr%2Ftop-meilleurs-jeux-video-strategie&psig=AOvVaw1PNfI1CL9cjWQxF_1KLbS_&ust=1706919893277000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCMCqwqGyi4QDFQAAAAAdAAAAABAE'
+    "url":'https://img.redbull.com/images/c_limit,w_1500,h_1000,f_auto,q_auto/redbullcom/2016/02/29/1331779577696_2/civilization-ii-meilleurs-jeux-video-strategie'
 
 },
 
@@ -110,7 +110,7 @@ let categorie=[
 {
     "idCategorie":6,
     "nom": "Casse-tete",
-    "url":'https://www.google.com/url?sa=i&url=https%3A%2F%2Fjeuxdesprit.ca%2Ffr%2Fcasse-tete&psig=AOvVaw0qbqmsfJFxcTeOpPpLMkQA&ust=1706920066140000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNjL4vOyi4QDFQAAAAAdAAAAABAE'
+    "url":'https://jeuxdesprit.ca/_app/immutable/assets/casse-tete.50c600b3.png'
 
 },
 
@@ -141,7 +141,6 @@ let categorie=[
     "url":'https://cherry.img.pmdstatic.net/fit/https.3A.2F.2Fimg.2Egaming.2Egentside.2Ecom.2Fs3.2Ffrgsg.2F1280.2Floisirs.2Fdefault_2022-05-03_94f263c1-eb26-41b1-8afe-804fe2b79934.2Ejpeg/1200x675/quality/80/ces-5-jeux-de-societe-tires-de-jeux-video-rappelleront-votre-enfance.jpg'
 }
 ]
-
 
 let listePlateformes=[{
 "identification":"ps",
@@ -176,7 +175,6 @@ const plateformes=document.createElement("div");
 plateformes.classList.add('plateformes');
 
 
-
 for(let i=0; i<objet.plateformes.length;i++){
     for(let j=0; j<listePlateformes.length;j++){
     if(objet.plateformes[i]===listePlateformes[j].identification){
@@ -191,16 +189,42 @@ titre.textContent = objet.titre;
 img.src=objet.url;
 
 
-
 jeux.append(titre,img,plateformes);
-
 
 return jeux;
 }
 
 for(let i=0;i<listeJeux.length;i++){
-const jeu = afficherJeux(listeJeux[i],listePlateformes);
-document.querySelector('.liste').appendChild(jeu);
+const article = afficherJeux(listeJeux[i],listePlateformes);
+document.querySelector(".liste").appendChild(article);
 }
+
+let afficherCategorie=function(categorie){
+    
+    
+    const liste=document.createElement("ul");
+    const element =document.createElement("li");
+
+
+    const image=document.createElement("img");
+    const a=document.createElement("a");
+
+    a.textContent=categorie.nom;
+    a.href="index.html?categorie="+categorie.idCategorie;
+    image.src=categorie.url;
+
+
+    element.append(a,image);
+    liste.append(element);
+
+    return liste
+}
+
+
+for(let i=0;i<listeCategorie.length;i++){
+    const article = afficherCategorie(listeCategorie[i]);
+    document.querySelector(".categorie").append(article);
+    }
+
 
 
