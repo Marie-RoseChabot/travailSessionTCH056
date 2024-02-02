@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="Style\style.css">
     <link rel="stylesheet" href="Style\normalize.css">
+    <script src="script\listeJeux.js"></script>
 </head>
 <body>
     
