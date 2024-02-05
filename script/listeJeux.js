@@ -198,7 +198,8 @@ for(let i=0;i<listeJeux.length;i++){
 const article = afficherJeux(listeJeux[i],listePlateformes);
 document.querySelector(".liste").appendChild(article);
 }
-
+let tempCategorie = "";
+let tempPlateforme = "";
 let afficherCategorie=function(categorie, idCategorie){
     
     const element =document.createElement("li");
@@ -211,7 +212,8 @@ let afficherCategorie=function(categorie, idCategorie){
     a.setAttribute("id", "categorie" + idCategorie);
     a.addEventListener('click', function(event){
         event.preventDefault();
-        filtrer(idCategorie);
+        tempCategorie = idCategorie;
+        filtrer(listeJeux, tempCategorie, tempPlateforme);
         const l1 = "index.html?"+categorie.nom;
         history.pushState(null, null, l1);
     
@@ -231,16 +233,34 @@ for(let i=0;i<listeCategorie.length;i++){
     afficherCategorie(listeCategorie[i], i+1);
     }
 
-let filtrer = function(idFiltrer){
+let filtrer = function(listeJeu, idCat, idPlateforme){
     const jeux = document.querySelectorAll(".jeux");
     jeux.forEach(function(jeu){
         jeu.remove();
     });
-    for(let i=0; i<listeJeux.length;i++){
-        if(listeJeux[i].idCategorie == idFiltrer){
+    for(let i=0; i<listeJeu.length;i++){
+        const checkCat = idCat == "" || listeJeux[i].idCategorie == idCat;
+        const checkPlateforme = idPlateforme == "" || listeJeux[i].plateformes.includes(idPlateforme);
+        if (checkCat && checkPlateforme){
             const article = afficherJeux(listeJeux[i],listePlateformes);
             document.querySelector(".liste").appendChild(article);
         }
     }
 }
 
+const choixPlateforme = document.querySelector("#deroulant");
+choixPlateforme.addEventListener('change', function(){
+    tempPlateforme = choixPlateforme.value;
+    filtrer(listeJeux, tempCategorie, tempPlateforme);
+})
+const choixToutes = document.createElement("option");
+choixPlateforme.append(choixToutes);
+choixToutes.setAttribute("id", "p0");
+choixToutes.setAttribute("value", "");
+choixToutes.textContent = "--Toutes--";
+for (let i = 0; i<listePlateformes.length;i++){
+    const choix = document.createElement("option");
+    choixPlateforme.append(choix);
+    choix.setAttribute("value", listePlateformes[i].identification);
+    choix.textContent = listePlateformes[i].nom;
+}
