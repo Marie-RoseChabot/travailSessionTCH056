@@ -195,11 +195,19 @@ return jeux;
 }
 
 for(let i=0;i<listeJeux.length;i++){
-const article = afficherJeux(listeJeux[i],listePlateformes);
-document.querySelector(".liste").appendChild(article);
+    if (listeJeux[i].titre != ""){
+        const article = afficherJeux(listeJeux[i],listePlateformes);
+        document.querySelector(".liste").appendChild(article);
+    }
 }
-let tempCategorie = "";
-let tempPlateforme = "";
+
+
+
+let tempCategorie = "";         // Variable temporaire pour stocker l'information sur la categorie choisie afin de filtrer le contenu
+let tempPlateforme = "";        // Variable temporaire pour stocker l'information sur la plateforme choisie afin de filtrer le contenu
+
+
+
 let afficherCategorie=function(categorie, idCategorie){
     
     const element =document.createElement("li");
@@ -241,7 +249,7 @@ let filtrer = function(listeJeu, idCat, idPlateforme){
     for(let i=0; i<listeJeu.length;i++){
         const checkCat = idCat == "" || listeJeux[i].idCategorie == idCat;
         const checkPlateforme = idPlateforme == "" || listeJeux[i].plateformes.includes(idPlateforme);
-        if (checkCat && checkPlateforme){
+        if (checkCat && checkPlateforme && listeJeux[i].titre != ""){
             const article = afficherJeux(listeJeux[i],listePlateformes);
             document.querySelector(".liste").appendChild(article);
         }
@@ -264,3 +272,65 @@ for (let i = 0; i<listePlateformes.length;i++){
     choix.setAttribute("value", listePlateformes[i].identification);
     choix.textContent = listePlateformes[i].nom;
 }
+
+
+const backdrop = document.querySelector(".backdrophidden");
+backdrop.addEventListener('click', function(event) {
+    if (event.target === backdrop) {
+        const formJeu = document.querySelector(".jeuform");
+        formJeu.classList.replace("jeuform", "formcache");
+        backdrop.classList.replace("backdrop", "backdrophidden");
+    }
+});
+const ajouter = document.querySelector("#ajouterJeu");
+ajouter.addEventListener('click', function(){
+    const formJeu = document.querySelector(".formcache");
+    formJeu.classList.replace("formcache", "jeuform");
+    backdrop.classList.replace("backdrophidden", "backdrop");
+    
+});
+
+
+const buttonAjouter = document.querySelector("#buttonNewJeu");
+buttonAjouter.addEventListener('click', function(){
+    let nouveauJeu = {
+        "id":"",
+        "titre": "",
+        "url": "",
+        "idCategorie":"",
+        "plateformes":[]
+    }
+    const nouveauJeuForm = document.querySelector(".jeuform");
+    nouveauJeu.id = listeJeux.length + 1;
+    const nomDuJeu = document.querySelector("#nomDuJeu");
+    nouveauJeu.titre = nomDuJeu.value;
+    const imageDuJeu = document.querySelector("#imageDuJeu");
+    nouveauJeu.url = imageDuJeu.value;
+    const categorieNewJeu = document.querySelector("#categorieNewJeu");
+    for (let i = 0; i<listeCategorie.length;i++){
+        if(listeCategorie[i].nom == categorieNewJeu.value){
+            nouveauJeu.idCategorie = listeCategorie[i].idCategorie;
+        }
+    }
+    const p1 = document.querySelector("#ps");
+    const p2 = document.querySelector("#xbox");
+    const p3 = document.querySelector("#switch");
+    const p4 = document.querySelector("#pc");
+    
+    if (p1.checked){
+        nouveauJeu.plateformes.push("ps");
+    }
+    if(p2.checked){
+        nouveauJeu.plateformes.push("xbox");
+    }
+    if(p3.checked){
+        nouveauJeu.plateformes.push("switch");
+    }
+    if(p4.checked){
+        nouveauJeu.plateformes.push("pc");
+    }
+    listeJeux.push(nouveauJeu);
+    nouveauJeuForm.classList.replace("jeuform", "formcache");
+    backdrop.classList.replace("backdrop", "backdrophidden");
+
+});

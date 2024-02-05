@@ -11,11 +11,42 @@
   </head>
 
   <body>
+    <div class="backdrophidden"></div>
+    <form class="formcache">
+      <label for="nomDuJeu">Nom:</label><br>
+      <input type="text" id="nomDuJeu" name="nomDuJeu"><br>
+      <label for="imageDuJeu">Image:</label><br>
+      <input type="url" id="imageDuJeu" name="imageDuJeu"><br>
+      <label for="categorieNewJeu">Categorie:</label>
+      <select name="categorieNewJeu" id="categorieNewJeu">
+        <option>Action</option>
+        <option>Aventure</option>
+        <option>Indie</option>
+        <option>Strategie</option>
+        <option>Simulation</option>
+        <option>Casse-tete</option>
+        <option>Arcade</option>
+        <option>Sport</option>
+        <option>Famille</option>
+        <option>JeuSociete</option>
+      </select><br>
+      Plateformes:<br>
+      <label for="ps">Playstation</label>
+      <input type="checkbox" id="ps" name="ps"><br>
+      <label for="xbox">Xbox</label>
+      <input type="checkbox" id="xbox" name="xbox"><br>
+      <label for="switch">Switch</label>
+      <input type="checkbox" id="switch" name="switch"><br>
+      <label for="pc">PC</label>
+      <input type="checkbox" id="pc" name="pc"><br>
+      <button type="button" id="buttonNewJeu">Submit</button>
+    </form>
     <script src="./script/listeJeux.js" defer></script>
 
     <div class="conteneur">
         <header class="zone-page entete">
         <img src="./images/game-controller.png" alt="en-tete">
+        <button type="button" id="ajouterJeu">Ajouter un jeu</button>
         <a href="index.html?authentification">Autenthification</a>
 
         </header>
