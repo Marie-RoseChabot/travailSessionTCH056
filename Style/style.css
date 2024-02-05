@@ -35,20 +35,28 @@ padding: 0.1rem;
 
 
 nav li img{
-height: 2.5rem;
-width: 2.5rem;
+height: 1.6rem;
+width: 1.6rem;
 margin: 1px;
 padding: 0.1rem;
 }
 nav ul{
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 nav li {
 height: 25px;
 width: 250px;
 display: flex;
 text-align: center;
-justify-content: start;
+margin: 0.1rem;
+}
+nav a{
+    display: block;
+    width: 10rem;
+    text-decoration: none;
+    
 }
 
 div.conteneur{
@@ -76,13 +84,14 @@ div.conteneur{
     width: 2.5rem;
 }
 
-nav{
+nav {
     grid-area: menu;
     display:flex;
     flex-direction:column;
     align-content:stretch;
     border-right: 0.1rem solid;;  
 }
+
 
 .liste{
     display: flex;

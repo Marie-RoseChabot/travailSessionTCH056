@@ -199,18 +199,23 @@ const article = afficherJeux(listeJeux[i],listePlateformes);
 document.querySelector(".liste").appendChild(article);
 }
 
-let afficherCategorie=function(categorie){
+let afficherCategorie=function(categorie, idCategorie){
     
-    
-    const liste=document.createElement("ul");
     const element =document.createElement("li");
-
 
     const image=document.createElement("img");
     const a=document.createElement("a");
 
     a.textContent=categorie.nom;
-    a.href="index.html?categorie="+categorie.idCategorie;
+    a.href="index.html?"+categorie.nom;
+    a.setAttribute("id", "categorie" + idCategorie);
+    a.addEventListener('click', function(event){
+        event.preventDefault();
+        filtrer(idCategorie);
+        const l1 = "index.html?"+categorie.nom;
+        history.pushState(null, null, l1);
+    
+    });
     image.src=categorie.url;
 
 
@@ -219,12 +224,23 @@ let afficherCategorie=function(categorie){
 
     return liste
 }
-
-
+const liste=document.createElement("ul");
+document.querySelector("nav").append(liste);
+liste.setAttribute("class", "categorie");
 for(let i=0;i<listeCategorie.length;i++){
-    const article = afficherCategorie(listeCategorie[i]);
-    document.querySelector(".categorie").append(article);
+    afficherCategorie(listeCategorie[i], i+1);
     }
 
-
+let filtrer = function(idFiltrer){
+    const jeux = document.querySelectorAll(".jeux");
+    jeux.forEach(function(jeu){
+        jeu.remove();
+    });
+    for(let i=0; i<listeJeux.length;i++){
+        if(listeJeux[i].idCategorie == idFiltrer){
+            const article = afficherJeux(listeJeux[i],listePlateformes);
+            document.querySelector(".liste").appendChild(article);
+        }
+    }
+}
 
