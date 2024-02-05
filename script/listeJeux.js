@@ -169,7 +169,58 @@ let afficherJeux=function(objet,listePlateformes){
 
 const jeux = document.createElement("article");
 jeux.classList.add('jeux');
+const jeuHeader = document.createElement("div");
+jeuHeader.classList.add("jeuHeader");
 const titre = document.createElement("h2");
+const iconeMod = document.createElement("img");
+iconeMod.src = "./images/editing.png";
+iconeMod.classList.add("iconesModif");
+const iconeSup = document.createElement("img");
+iconeSup.classList.add("iconesModif");
+iconeSup.src = "./images/remove.png";
+iconeSup.id = listeJeux.indexOf(objet);
+iconeSup.addEventListener('click', function(){
+    const message = document.querySelector('.messageConfirmation');
+    backdrop.classList.replace("backdrophidden", "backdrop");
+    message.classList.replace("messageConfirmation", "jeuform");
+    tempElement = iconeSup.id;
+});
+iconeMod.addEventListener('click', function(){
+
+    elementChoisi = listeJeux.indexOf(objet);
+    const formJeu = document.querySelector(".formcache");
+    formJeu.classList.replace("formcache", "jeuform");
+    backdrop.classList.replace("backdrophidden", "backdrop");
+    //const nomDuJeu = document.querySelector("#nomDuJeu");
+    //const imageDuJeu = document.querySelector("#imageDuJeu");
+    //const categorieJeu = document.querySelector("#categorieNewJeu");
+    nomDuJeu.value = objet.titre;
+    imageDuJeu.value = objet.url;
+    categorieJeu.value = objet.idCategorie;
+    resetCheckbox();
+    for(p of objet.plateformes){
+        if(p === "ps"){
+            p1.checked = true;
+        }
+        if(p === "xbox"){
+            p2.checked = true;
+        }
+        if(p === "switch"){
+            p3.checked = true;
+        }
+        if(p === "pc"){
+            p4.checked = true;
+        }
+    }
+
+});
+
+
+
+
+const buttons = document.createElement("div");
+buttons.append(iconeSup, iconeMod);
+jeuHeader.append(titre, buttons);
 const img=document.createElement("img");
 const plateformes=document.createElement("div");
 plateformes.classList.add('plateformes');
@@ -188,11 +239,83 @@ for(let i=0; i<objet.plateformes.length;i++){
 titre.textContent = objet.titre;
 img.src=objet.url;
 
-
-jeux.append(titre,img,plateformes);
+jeux.append(jeuHeader,img,plateformes);
 
 return jeux;
 }
+
+
+const buttonModifier = document.querySelector("#buttonModifier");
+buttonModifier.addEventListener('click', function(){
+    const formJeu = document.querySelector(".jeuform");
+    let objet = listeJeux[elementChoisi];
+    if (p1.checked && !objet.plateformes.includes("ps")){
+        objet.plateformes.push("ps");
+    }
+    if (p2.checked && !objet.plateformes.includes("xbox")){
+        objet.plateformes.push("xbox");
+    }
+    if (p3.checked && !objet.plateformes.includes("switch")){
+        objet.plateformes.push("switch");
+    }
+    if (p4.checked && !objet.plateformes.includes("pc")){
+        objet.plateformes.push("pc");
+    }
+    if (!p1.checked && objet.plateformes.includes("ps")){
+        objet.plateformes = objet.plateformes.filter(plat => plat !== "ps");
+    }
+    if (!p2.checked && objet.plateformes.includes("xbox")){
+        objet.plateformes = objet.plateformes.filter(plat => plat !== "xbox");
+    }
+    if (!p3.checked && objet.plateformes.includes("switch")){
+        objet.plateformes = objet.plateformes.filter(plat => plat !== "switch");
+    }
+    if (!p4.checked && objet.plateformes.includes("pc")){
+        objet.plateformes = objet.plateformes.filter(plat => plat !== "pc");
+    }
+    objet.titre = nomDuJeu.value;
+    objet.idCategorie = categorieJeu.value;
+    objet.url = imageDuJeu.value;
+    formJeu.classList.replace("jeuform", "formcache");
+    backdrop.classList.replace("backdrop", "backdrophidden");
+    filtrer(listeJeux, tempCategorie, tempPlateforme);
+
+});
+
+
+let resetCheckbox = function(){
+    const p1 = document.querySelector("#ps");
+    const p2 = document.querySelector("#xbox");
+    const p3 = document.querySelector("#switch");
+    const p4 = document.querySelector("#pc");
+
+    p1.checked = false;
+    p2.checked = false;
+    p3.checked = false;
+    p4.checked = false;
+}
+
+
+const confirmationOui = document.querySelector("#confirmationOui");
+confirmationOui.addEventListener('click', function(){
+    listeJeux.splice(tempElement, 1);
+    backdrop.classList.replace("backdrop", "backdrophidden");
+    const message = document.querySelector('.jeuform');
+    message.classList.replace("jeuform", "messageConfirmation");
+    filtrer(listeJeux, tempCategorie, tempPlateforme);
+
+});
+
+const confirmationNon = document.querySelector("#confirmationNon");
+confirmationNon.addEventListener('click', function(){
+    backdrop.classList.replace("backdrop", "backdrophidden");
+    const message = document.querySelector('.jeuform');
+    message.classList.replace("jeuform", "messageConfirmation");
+    filtrer(listeJeux, tempCategorie, tempPlateforme);
+
+});
+
+
 
 for(let i=0;i<listeJeux.length;i++){
     if (listeJeux[i].titre != ""){
@@ -205,6 +328,17 @@ for(let i=0;i<listeJeux.length;i++){
 
 let tempCategorie = "";         // Variable temporaire pour stocker l'information sur la categorie choisie afin de filtrer le contenu
 let tempPlateforme = "";        // Variable temporaire pour stocker l'information sur la plateforme choisie afin de filtrer le contenu
+let tempElement = "";
+let elementChoisi = "";
+const nomDuJeu = document.querySelector("#nomDuJeu");
+const imageDuJeu = document.querySelector("#imageDuJeu");
+const categorieJeu = document.querySelector("#categorieNewJeu");
+const p1 = document.querySelector("#ps");
+const p2 = document.querySelector("#xbox");
+const p3 = document.querySelector("#switch");
+const p4 = document.querySelector("#pc");
+
+
 
 
 
@@ -293,29 +427,30 @@ ajouter.addEventListener('click', function(){
 
 const buttonAjouter = document.querySelector("#buttonNewJeu");
 buttonAjouter.addEventListener('click', function(){
-    let nouveauJeu = {
+    // const nomDuJeu = document.querySelector("#nomDuJeu");
+        for(let k=0; k<listeJeux.length;k++){
+            if(nomDuJeu.value != listeJeux[i].titre){
+                resetCheckbox();
+
+
+        let nouveauJeu = {
         "id":"",
         "titre": "",
         "url": "",
         "idCategorie":"",
         "plateformes":[]
     }
+    nouveauJeu.titre = nomDuJeu.value;
     const nouveauJeuForm = document.querySelector(".jeuform");
     nouveauJeu.id = listeJeux.length + 1;
-    const nomDuJeu = document.querySelector("#nomDuJeu");
-    nouveauJeu.titre = nomDuJeu.value;
-    const imageDuJeu = document.querySelector("#imageDuJeu");
+    // const imageDuJeu = document.querySelector("#imageDuJeu");
     nouveauJeu.url = imageDuJeu.value;
-    const categorieNewJeu = document.querySelector("#categorieNewJeu");
+    // const categorieNewJeu = document.querySelector("#categorieNewJeu");
     for (let i = 0; i<listeCategorie.length;i++){
-        if(listeCategorie[i].nom == categorieNewJeu.value){
+        if(listeCategorie[i].nom == categorieJeu.value){
             nouveauJeu.idCategorie = listeCategorie[i].idCategorie;
         }
     }
-    const p1 = document.querySelector("#ps");
-    const p2 = document.querySelector("#xbox");
-    const p3 = document.querySelector("#switch");
-    const p4 = document.querySelector("#pc");
     
     if (p1.checked){
         nouveauJeu.plateformes.push("ps");
@@ -332,5 +467,8 @@ buttonAjouter.addEventListener('click', function(){
     listeJeux.push(nouveauJeu);
     nouveauJeuForm.classList.replace("jeuform", "formcache");
     backdrop.classList.replace("backdrop", "backdrophidden");
+    filtrer(listeJeux, tempCategorie, tempPlateforme);
+}
+        }
 
 });

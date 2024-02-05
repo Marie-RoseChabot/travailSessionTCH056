@@ -12,18 +12,36 @@
 }
 
 .jeux img{
-height: 70%;
-width: 95%; 
+height: 65%;
+max-width: 100%; 
 margin:0px;
 justify-content: start;
-padding: 0.1rem;
+padding: 0.2rem;
+}
+.jeuHeader{
+    display: flex;
+    margin: 0.2rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.jeuHeader div{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 1rem;
+}
+.jeuHeader img{
+    width: 0.6rem;
+    height: 0.6rem;
+    margin: 0;
 }
 
 .plateformes img{
-    height: 75%;
-    width: 20%;
-    margin:0px;
-    justify-content: end;
+    height: 2rem;
+    width: 2rem;
+    margin:0.1rem;
+    justify-self: end;
+    padding: 0.1rem;
 }
 
 
@@ -139,4 +157,18 @@ nav {
 }
 .formcache {
     display: none;
+}
+.iconesModif {
+    display: none;
+}
+.jeuHeader:hover .iconesModif{
+    display: block;
+}
+
+.messageConfirmation {
+    display: none;
+}
+.confirmationButtons {
+    display: flex;
+    justify-content: space-between;
 }

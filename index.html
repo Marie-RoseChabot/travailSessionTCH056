@@ -19,16 +19,16 @@
       <input type="url" id="imageDuJeu" name="imageDuJeu"><br>
       <label for="categorieNewJeu">Categorie:</label>
       <select name="categorieNewJeu" id="categorieNewJeu">
-        <option>Action</option>
-        <option>Aventure</option>
-        <option>Indie</option>
-        <option>Strategie</option>
-        <option>Simulation</option>
-        <option>Casse-tete</option>
-        <option>Arcade</option>
-        <option>Sport</option>
-        <option>Famille</option>
-        <option>JeuSociete</option>
+        <option value="1">Action</option>
+        <option value="2">Aventure</option>
+        <option value="3">Indie</option>
+        <option value="4">Strategie</option>
+        <option value="5">Simulation</option>
+        <option value="6">Casse-tete</option>
+        <option value="7">Arcade</option>
+        <option value="8">Sport</option>
+        <option value="9">Famille</option>
+        <option value="10">JeuSociete</option>
       </select><br>
       Plateformes:<br>
       <label for="ps">Playstation</label>
@@ -39,8 +39,16 @@
       <input type="checkbox" id="switch" name="switch"><br>
       <label for="pc">PC</label>
       <input type="checkbox" id="pc" name="pc"><br>
-      <button type="button" id="buttonNewJeu">Submit</button>
+      <button type="button" id="buttonNewJeu">Ajouter</button>
+      <button type="button" id="buttonModifier">Modifier</button>
     </form>
+    <div class="messageConfirmation">
+      <h2>Veuillez vous supprimer ce jeu?</h2>
+      <div class="confirmationButtons">
+        <button type="button" id="confirmationOui">Oui</button>
+        <button type="button" id="confirmationNon">Non</button>
+      </div>
+    </div>
     <script src="./script/listeJeux.js" defer></script>
 
     <div class="conteneur">
