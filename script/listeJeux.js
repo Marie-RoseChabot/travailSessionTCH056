@@ -167,25 +167,25 @@ let listePlateformes=[{
 
 let afficherJeux=function(objet,listePlateformes){
 
-    const jeux = document.createElement("article");
-    jeux.classList.add('jeux');
-    const jeuHeader = document.createElement("div");
-    jeuHeader.classList.add("jeuHeader");
-    const titre = document.createElement("h2");
-    const iconeMod = document.createElement("img");
-    iconeMod.src = "./images/editing.png";
-    iconeMod.classList.add("iconesModif");
-    const iconeSup = document.createElement("img");
-    iconeSup.classList.add("iconesModif");
-    iconeSup.src = "./images/remove.png";
-    iconeSup.id = listeJeux.indexOf(objet);
-    iconeSup.addEventListener('click', function(){
-        const message = document.querySelector('.messageConfirmation');
-        backdrop.classList.replace("backdrophidden", "backdrop");
-        message.classList.replace("messageConfirmation", "jeuform");
-        tempElement = iconeSup.id;
-    });
-    iconeMod.addEventListener('click', function(){
+const jeux = document.createElement("article");
+jeux.classList.add('jeux');
+const jeuHeader = document.createElement("div");
+jeuHeader.classList.add("jeuHeader");
+const titre = document.createElement("h2");
+const iconeMod = document.createElement("img");
+iconeMod.src = "./images/editing.png";
+iconeMod.classList.add("iconesModif");
+const iconeSup = document.createElement("img");
+iconeSup.classList.add("iconesModif");
+iconeSup.src = "./images/remove.png";
+iconeSup.id = listeJeux.indexOf(objet);
+iconeSup.addEventListener('click', function(){
+    const message = document.querySelector('.messageConfirmation');
+    backdrop.classList.replace("backdrophidden", "backdrop");
+    message.classList.replace("messageConfirmation", "jeuform");
+    tempElement = iconeSup.id;
+});
+iconeMod.addEventListener('click', function(){
 
     elementChoisi = listeJeux.indexOf(objet);
     const formJeu = document.querySelector(".formcache");
@@ -437,20 +437,6 @@ let nouveauJeu = {
     }
 const buttonAjouter = document.querySelector("#buttonNewJeu");
 buttonAjouter.addEventListener('click', function(){
-    // const nomDuJeu = document.querySelector("#nomDuJeu");
-        for(let k=0; k<listeJeux.length;k++){
-            if(nomDuJeu.value != listeJeux[i].titre){
-                resetCheckbox();
-
-
-        let nouveauJeu = {
-        "id":"",
-        "titre": "",
-        "url": "",
-        "idCategorie":"",
-        "plateformes":[]
-    }
-    nouveauJeu.titre = nomDuJeu.value;
     const nouveauJeuForm = document.querySelector(".jeuform");
     let nomsJeux = [];
     for(let n = 0; n<listeJeux.length; n++){
@@ -467,6 +453,7 @@ buttonAjouter.addEventListener('click', function(){
                 nouveauJeu.idCategorie = categorieJeu.value;
                 console.log(nouveauJeu);
                 if (p1.checked){
+                    
                     nouveauJeu.plateformes.push("ps");
                 }
                 if(p2.checked){
