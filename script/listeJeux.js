@@ -191,13 +191,17 @@ let afficherJeux=function(objet,listePlateformes){
     const formJeu = document.querySelector(".formcache");
     formJeu.classList.replace("formcache", "jeuform");
     backdrop.classList.replace("backdrophidden", "backdrop");
-    //const nomDuJeu = document.querySelector("#nomDuJeu");
-    //const imageDuJeu = document.querySelector("#imageDuJeu");
-    //const categorieJeu = document.querySelector("#categorieNewJeu");
+    const nomDuJeu = document.querySelector("#nomDuJeu");
+    const imageDuJeu = document.querySelector("#imageDuJeu");
+    const categorieJeu = document.querySelector("#categorieNewJeu");
     nomDuJeu.value = objet.titre;
     imageDuJeu.value = objet.url;
     categorieJeu.value = objet.idCategorie;
     resetCheckbox();
+    const p1 = document.querySelector("#ps");
+    const p2 = document.querySelector("#xbox");
+    const p3 = document.querySelector("#switch");
+    const p4 = document.querySelector("#pc");
     for(p of objet.plateformes){
         if(p === "ps"){
             p1.checked = true;
@@ -424,12 +428,18 @@ ajouter.addEventListener('click', function(){
     
 });
 
-
+let nouveauJeu = {
+    "id":0,
+    "titre": "",
+    "url": "",
+    "idCategorie": 0,
+    "plateformes":[]
+    }
 const buttonAjouter = document.querySelector("#buttonNewJeu");
 buttonAjouter.addEventListener('click', function(){
     // const nomDuJeu = document.querySelector("#nomDuJeu");
         for(let k=0; k<listeJeux.length;k++){
-            if(nomDuJeu.value != listeJeux[k].titre){
+            if(nomDuJeu.value != listeJeux[i].titre){
                 resetCheckbox();
 
 
@@ -442,33 +452,38 @@ buttonAjouter.addEventListener('click', function(){
     }
     nouveauJeu.titre = nomDuJeu.value;
     const nouveauJeuForm = document.querySelector(".jeuform");
-    nouveauJeu.id = listeJeux.length + 1;
-    // const imageDuJeu = document.querySelector("#imageDuJeu");
-    nouveauJeu.url = imageDuJeu.value;
-    // const categorieNewJeu = document.querySelector("#categorieNewJeu");
-    for (let i = 0; i<listeCategorie.length;i++){
-        if(listeCategorie[i].nom == categorieJeu.value){
-            nouveauJeu.idCategorie = listeCategorie[i].idCategorie;
-        }
+    let nomsJeux = [];
+    for(let n = 0; n<listeJeux.length; n++){
+        nomsJeux.push(listeJeux[n].titre);
     }
-    
-    if (p1.checked){
-        nouveauJeu.plateformes.push("ps");
-    }
-    if(p2.checked){
-        nouveauJeu.plateformes.push("xbox");
-    }
-    if(p3.checked){
-        nouveauJeu.plateformes.push("switch");
-    }
-    if(p4.checked){
-        nouveauJeu.plateformes.push("pc");
-    }
-    listeJeux.push(nouveauJeu);
-    nouveauJeuForm.classList.replace("jeuform", "formcache");
-    backdrop.classList.replace("backdrop", "backdrophidden");
-    filtrer(listeJeux, tempCategorie, tempPlateforme);
-}
-        }
+        if(!nomsJeux.includes(nomDuJeu.value)){
+            //if(nomDuJeu.value != listeJeux[k].titre){
+
+
+                nouveauJeu.titre = nomDuJeu.value;
+                nouveauJeu.id = listeJeux.length;
+                // const imageDuJeu = document.querySelector("#imageDuJeu");
+                nouveauJeu.url = imageDuJeu.value;
+                nouveauJeu.idCategorie = categorieJeu.value;
+                console.log(nouveauJeu);
+                if (p1.checked){
+                    nouveauJeu.plateformes.push("ps");
+                }
+                if(p2.checked){
+                    nouveauJeu.plateformes.push("xbox");
+                }
+                if(p3.checked){
+                    nouveauJeu.plateformes.push("switch");
+                }
+                if(p4.checked){
+                    nouveauJeu.plateformes.push("pc");
+                }
+                console.log(p1.checked);
+                listeJeux.push(nouveauJeu);
+                nouveauJeuForm.classList.replace("jeuform", "formcache");
+                backdrop.classList.replace("backdrop", "backdrophidden");
+                filtrer(listeJeux, tempCategorie, tempPlateforme);
+                }
+            
 
 });
