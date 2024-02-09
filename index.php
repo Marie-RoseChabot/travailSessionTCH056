@@ -59,7 +59,7 @@ require_once __DIR__.'/config.php';
         <header class="zone-page entete">
         <img src="./images/game-controller.png" alt="en-tete">
         <button type="button" id="ajouterJeu">Ajouter un jeu</button>
-        <a href="index.html?authentification">Autenthification</a>
+        <a href="./login.php">Autenthification</a>
 
         </header>
         <nav>

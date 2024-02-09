@@ -81,7 +81,7 @@ div.conteneur{
     min-height: 100vh;
     display: grid;
     grid-template-columns: 250px auto;
-    grid-template-rows: 2.5rem 1fr; 
+    grid-template-rows: 2.5rem auto 2.5rem; 
     grid-template-areas:
       "entete  entete   "
       "menu     principal"
@@ -93,10 +93,12 @@ div.conteneur{
     display:flex;
     flex-direction: row;
     border-bottom: 0.1rem solid;
-    
     justify-content: space-between; 
     align-items: center;
+  
 }
+
+
 
 .entete img{
     width: 2.5rem;
