@@ -182,7 +182,7 @@ iconeSup.id = listeJeux.indexOf(objet);
 iconeSup.addEventListener('click', function(){
     const message = document.querySelector('.messageConfirmation');
     backdrop.classList.replace("backdrophidden", "backdrop");
-    message.classList.replace("messageConfirmation", "jeuform");
+    message.classList.replace("messageConfirmation", "messageAff");
     tempElement = iconeSup.id;
 });
 iconeMod.addEventListener('click', function(){
@@ -304,8 +304,8 @@ const confirmationOui = document.querySelector("#confirmationOui");
 confirmationOui.addEventListener('click', function(){
     listeJeux.splice(tempElement, 1);
     backdrop.classList.replace("backdrop", "backdrophidden");
-    const message = document.querySelector('.jeuform');
-    message.classList.replace("jeuform", "messageConfirmation");
+    const message = document.querySelector('.messageAff');
+    message.classList.replace("messageAff", "messageConfirmation");
     filtrer(listeJeux, tempCategorie, tempPlateforme);
 
 });
@@ -313,8 +313,8 @@ confirmationOui.addEventListener('click', function(){
 const confirmationNon = document.querySelector("#confirmationNon");
 confirmationNon.addEventListener('click', function(){
     backdrop.classList.replace("backdrop", "backdrophidden");
-    const message = document.querySelector('.jeuform');
-    message.classList.replace("jeuform", "messageConfirmation");
+    const message = document.querySelector('.messageAff');
+    message.classList.replace("messageAff", "messageConfirmation");
     filtrer(listeJeux, tempCategorie, tempPlateforme);
 
 });
@@ -416,7 +416,13 @@ const backdrop = document.querySelector(".backdrophidden");
 backdrop.addEventListener('click', function(event) {
     if (event.target === backdrop) {
         const formJeu = document.querySelector(".jeuform");
-        formJeu.classList.replace("jeuform", "formcache");
+        if(formJeu){
+            formJeu.classList.replace("jeuform", "formcache");
+        }
+        const messageConf = document.querySelector(".messageAff")
+        if (messageConf){
+            messageConf.classList.replace("messageAff", "messageConfirmation");
+        }
         backdrop.classList.replace("backdrop", "backdrophidden");
     }
 });
