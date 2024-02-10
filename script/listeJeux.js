@@ -428,17 +428,18 @@ ajouter.addEventListener('click', function(){
     
 });
 
-let nouveauJeu = {
-    "id":0,
-    "titre": "",
-    "url": "",
-    "idCategorie": 0,
-    "plateformes":[]
-    }
+
 const buttonAjouter = document.querySelector("#buttonNewJeu");
 buttonAjouter.addEventListener('click', function(){
     const nouveauJeuForm = document.querySelector(".jeuform");
     let nomsJeux = [];
+    let nouveauJeu = {
+        "id":0,
+        "titre": "",
+        "url": "",
+        "idCategorie": 0,
+        "plateformes":[]
+        }
     for(let n = 0; n<listeJeux.length; n++){
         nomsJeux.push(listeJeux[n].titre);
     }
