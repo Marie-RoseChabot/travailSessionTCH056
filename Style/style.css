@@ -183,3 +183,8 @@ nav {
     display: flex;
     justify-content: space-between;
 }
+.divPlat {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
