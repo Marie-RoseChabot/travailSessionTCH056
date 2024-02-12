@@ -6,6 +6,8 @@ let elementChoisi = "";
 const nomDuJeu = document.querySelector("#nomDuJeu");
 const imageDuJeu = document.querySelector("#imageDuJeu");
 const categorieJeu = document.querySelector("#categorieNewJeu");
+const buttonAutent = document.querySelector("#autentification");
+const buttonDeccon = document.querySelector("#deconnexion");
 
 let afficherJeux = function (objet, listePlateformes) {
 
@@ -317,4 +319,16 @@ let effacerForm = function () {
     resetCheckbox();
     title.value = "";
     url.value = "";
+}
+
+console.log(gUserId);
+
+if (gUserId > 0){
+    console.log(gUserId);
+    buttonAutent.classList.replace("autent", "autentCache");
+    buttonDeccon.classList.replace("deconnCache", "deconn");
+}
+else {
+    buttonAutent.classList.replace("autentCache", "autent");
+    buttonDeccon.classList.replace("deconn", "deconnCache");
 }

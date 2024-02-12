@@ -190,3 +190,18 @@ nav {
     width: 50%;
     justify-content: space-between;
 }
+.autentCache {
+    display: none;
+}
+.deconnCache {
+    display: none;
+}
+
+.autent {
+    display: inline;
+    padding: 0.5rem;
+}
+.deconn {
+    display: inline;
+    padding: 0.5rem;
+}

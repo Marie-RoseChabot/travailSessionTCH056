@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     
 
-    $type_usager="regulier";
+    $type_usager="admin";
 
     $stmt = $pdo->prepare('SELECT * FROM usagers WHERE login = ?');
     $stmt->execute([$username]);
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
        
-        $stmt = $pdo->prepare('INSERT INTO usagers (login, password, email, type_usager) VALUES (?, ?, ?, ?)');
+        $stmt = $pdo->prepare('INSERT INTO usagers (login, PASSWORD, email, type_usager) VALUES (?, ?, ?, ?)');
         if ($stmt->execute([$username, $passwordHash, $email,$type_usager])) {
             header("Location: login.php");
             exit;
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php if($message): ?>
                 <div class="alert alert-danger"><?php echo $message; ?></div>
             <?php endif; ?>
-            <form method="post">
+            <form method="post" action="./nouvelUsager.php">
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur:</label>
                     <input type="text" id="username" name="username" class="form-control" required />
