@@ -23,26 +23,9 @@ require_once __DIR__.'/config.php';
       <input type="url" id="imageDuJeu" name="imageDuJeu"><br>
       <label for="categorieNewJeu">Categorie:</label>
       <select name="categorieNewJeu" id="categorieNewJeu">
-        <option value="1">Action</option>
-        <option value="2">Aventure</option>
-        <option value="3">Indie</option>
-        <option value="4">Strategie</option>
-        <option value="5">Simulation</option>
-        <option value="6">Casse-tete</option>
-        <option value="7">Arcade</option>
-        <option value="8">Sport</option>
-        <option value="9">Famille</option>
-        <option value="10">JeuSociete</option>
+        <option value="0">Selectionnez</option>
       </select><br>
       Plateformes:<br>
-      <label for="ps">Playstation</label>
-      <input type="checkbox" id="ps" name="ps"><br>
-      <label for="xbox">Xbox</label>
-      <input type="checkbox" id="xbox" name="xbox"><br>
-      <label for="switch">Switch</label>
-      <input type="checkbox" id="switch" name="switch"><br>
-      <label for="pc">PC</label>
-      <input type="checkbox" id="pc" name="pc"><br>
       <button type="button" id="buttonNewJeu">Ajouter</button>
       <button type="button" id="buttonModifier">Modifier</button>
     </form>
