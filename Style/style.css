@@ -205,3 +205,16 @@ nav {
     display: inline;
     padding: 0.5rem;
 }
+.ajouterNouveauJeu {
+    display: inline;
+}
+.ajouterNouveauJeuCache {
+    display: none;
+}
+.buttonsSupMod {
+    display:inline;
+}
+.buttonsSupModCache {
+    display: none !important;
+
+}
