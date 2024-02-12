@@ -72,6 +72,7 @@ $jeuxPlateformesJson = json_encode($jeuxPlateformes);
         })
       })
       let listePlateformes = <?= $plateformesJson ?>;
+      let gUserId = <?= $gUserId?>;
     </script>
     <script src="./script/listeJeux.js" defer></script>
 
@@ -79,7 +80,8 @@ $jeuxPlateformesJson = json_encode($jeuxPlateformes);
         <header class="zone-page entete">
         <img src="./images/game-controller.png" alt="en-tete">
         <button type="button" id="ajouterJeu">Ajouter un jeu</button>
-        <a href="./login.php">Autenthification</a>
+        <a href="./login.php" class="autent" id="autentification">Autenthification</a>
+        <a href="./index.php?deconnexion=1" class="deconnCache" id="deconnexion">Deconnexion</a>
 
         </header>
         <nav>

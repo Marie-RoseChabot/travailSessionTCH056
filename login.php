@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt->execute([$username]);
   $user = $stmt->fetch();
 
-  if ($user && password_verify($password, $user['password'])) {
+  if ($user && password_verify($password, $user['PASSWORD'])) {
       $_SESSION['usager'] = $user['id'];
       header("Location: /index.php");
       exit;
@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             class="form-control"
             required
           />
+          <br>
 
           <label for="password">Mot de passe:</label>
           <input
