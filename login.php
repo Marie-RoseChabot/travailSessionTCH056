@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt->execute([$username]);
   $user = $stmt->fetch();
 
-  if ($user && password_verify($password, $user['PASSWORD'])) {
+  if ($user && password_verify($password, $user['password'])) {
       $_SESSION['usager'] = $user['id'];
       header("Location: /index.php");
       exit;
