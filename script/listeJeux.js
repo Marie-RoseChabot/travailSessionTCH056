@@ -174,6 +174,8 @@ const imageDuJeu = document.querySelector("#imageDuJeu");
 const categorieJeu = document.querySelector("#categorieNewJeu");
 const buttonAutent = document.querySelector("#autentification");
 const buttonDeccon = document.querySelector("#deconnexion");
+const ajouter = document.querySelector("#ajouterJeu");
+
 
 let afficherJeux = function (objet, listePlateformes) {
 
@@ -219,6 +221,7 @@ let afficherJeux = function (objet, listePlateformes) {
 
 
     const buttons = document.createElement("div");
+    buttons.setAttribute("class", "buttonsSupMod buttonsAdmin");
     buttons.append(iconeSup, iconeMod);
     jeuHeader.append(titre, buttons);
     const img = document.createElement("img");
@@ -433,7 +436,7 @@ backdrop.addEventListener('click', function (event) {
         effacerForm();
     }
 });
-const ajouter = document.querySelector("#ajouterJeu");
+
 ajouter.addEventListener('click', function () {
     const formJeu = document.querySelector(".formcache");
     formJeu.classList.replace("formcache", "jeuform");
@@ -487,14 +490,33 @@ let effacerForm = function () {
     url.value = "";
 }
 
+console.log(typeUsager);
 console.log(gUserId);
-
+const buttonsSupMod = document.querySelectorAll(".buttonsAdmin");
+console.log(buttonsSupMod);
 if (gUserId > 0){
-    console.log(gUserId);
     buttonAutent.classList.replace("autent", "autentCache");
     buttonDeccon.classList.replace("deconnCache", "deconn");
 }
 else {
     buttonAutent.classList.replace("autentCache", "autent");
     buttonDeccon.classList.replace("deconn", "deconnCache");
+    ajouter.classList.replace("ajouterNouveauJeu", "ajouterNouveauJeuCache");
+    buttonsSupMod.forEach((button)=>{
+        button.classList.replace("buttonsSupMod", "buttonsSupModCache");
+    })
+}
+
+
+if (typeUsager == "admin"){
+    ajouter.classList.replace("ajouterNouveauJeuCache", "ajouterNouveauJeu");
+    buttonsSupMod.forEach((button)=>{
+        button.classList.replace("buttonsSupModCache", "buttonsSupMod");
+    })
+}
+else {
+    ajouter.classList.replace("ajouterNouveauJeu", "ajouterNouveauJeuCache");
+    buttonsSupMod.forEach((button)=>{
+        button.classList.replace("buttonsSupMod", "buttonsSupModCache");
+    })
 }

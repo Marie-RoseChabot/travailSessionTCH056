@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     
 
-    $type_usager="admin";
+    $type_usager="regulier";
 
     $stmt = $pdo->prepare('SELECT * FROM usagers WHERE login = ?');
     $stmt->execute([$username]);

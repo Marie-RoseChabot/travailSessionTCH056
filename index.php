@@ -23,6 +23,13 @@ $reqJeuxPlateformes = $pdo->prepare('SELECT * FROM jeux_plateformes');
 $reqJeuxPlateformes->execute();
 $jeuxPlateformes = $reqJeuxPlateformes->fetchAll();
 $jeuxPlateformesJson = json_encode($jeuxPlateformes);
+
+if(!isset($_SESSION['type_usager'])){
+  $typeUsager = "regulier";
+}
+else {
+  $typeUsager = $_SESSION['type_usager'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -73,13 +80,14 @@ $jeuxPlateformesJson = json_encode($jeuxPlateformes);
       })
       let listePlateformes = <?= $plateformesJson ?>;
       let gUserId = <?= $gUserId?>;
+      let typeUsager = "<?= $typeUsager ?>";
     </script>
     <script src="./script/listeJeux.js" defer></script>
 
     <div class="conteneur">
         <header class="zone-page entete">
         <img src="./images/game-controller.png" alt="en-tete">
-        <button type="button" id="ajouterJeu">Ajouter un jeu</button>
+        <button type="button" id="ajouterJeu" class="ajouterNouveauJeu">Ajouter un jeu</button>
         <a href="./login.php" class="autent" id="autentification">Autenthification</a>
         <a href="./index.php?deconnexion=1" class="deconnCache" id="deconnexion">Deconnexion</a>
 
