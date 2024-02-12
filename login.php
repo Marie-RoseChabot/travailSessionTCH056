@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             required
           />
 
+          <div>
           <label for="password">Mot de passe:</label>
           <input
             type="password"
@@ -60,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             class="form-control"
             required
           />
+          </div>
 
           <button type="submit" class="btn btn-primary mt-2 .align-top">
             Se connecter
