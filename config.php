@@ -1,9 +1,10 @@
 <?php
 // Démarrage de la session
 session_start();
+$gPublic = True;
 
 // Vérification si l'utilisateur est connecté, sinon redirection vers la page de connexion
-/* if ((!isset($gPublic) || !$gPublic) &&  !isset($_SESSION["usager"])) {
+ if ((!isset($gPublic) || !$gPublic) &&  !isset($_SESSION["usager"])) {
     header("Location: login.php");
     exit;
 } elseif(isset($_SESSION["usager"])) {
@@ -17,7 +18,7 @@ if(isset($_GET["logout"])){
     unset($_SESSION['usager']);
     header("Location: login.php");
     exit;
-} */
+} 
 
 //Configuration et connexion à la base de données
 $host = 'db';

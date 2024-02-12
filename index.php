@@ -1,5 +1,28 @@
 <?php
 require_once __DIR__.'/config.php';
+
+$reqJeux = $pdo->prepare('SELECT * FROM jeux');
+$reqJeux->execute();
+$jeux = $reqJeux->fetchAll();
+$jeuxJson = json_encode($jeux);
+
+
+$reqCategories = $pdo->prepare('SELECT * FROM categories');
+$reqCategories->execute();
+$categories = $reqCategories->fetchAll();
+$categoriesJson = json_encode($categories);
+
+
+$reqPlateformes = $pdo->prepare('SELECT * FROM plateformes');
+$reqPlateformes->execute();
+$plateformes = $reqPlateformes->fetchAll();
+$plateformesJson = json_encode($plateformes);
+
+
+$reqJeuxPlateformes = $pdo->prepare('SELECT * FROM jeux_plateformes');
+$reqJeuxPlateformes->execute();
+$jeuxPlateformes = $reqJeuxPlateformes->fetchAll();
+$jeuxPlateformesJson = json_encode($jeuxPlateformes);
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +59,20 @@ require_once __DIR__.'/config.php';
         <button type="button" id="confirmationNon">Non</button>
       </div>
     </div>
+    <script>
+      let listeJeuxPlateformes = <?= $jeuxPlateformesJson ?>;
+      let listeCategorie = <?= $categoriesJson ?>;
+      let listeJeux = <?= $jeuxJson ?>;
+      listeJeux.forEach((jeux)=>{
+        jeux.plateformes = [];
+        listeJeuxPlateformes.forEach((jeuxPlateforme)=>{
+          if(jeuxPlateforme.id_jeux == jeux.id){
+            jeux.plateformes.push(jeuxPlateforme.id_plateforme);
+          }
+        })
+      })
+      let listePlateformes = <?= $plateformesJson ?>;
+    </script>
     <script src="./script/listeJeux.js" defer></script>
 
     <div class="conteneur">

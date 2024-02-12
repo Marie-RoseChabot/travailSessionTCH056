@@ -1,4 +1,4 @@
-let listeJeux = [{
+/* let listeJeux = [{
     "id": 0,
     "titre": "Fifa",
     "url": 'https://media.rawg.io/media/resize/420/-/screenshots/f25/f25d5a19210a353478d34dcf00ed1615.jpg',
@@ -10,7 +10,7 @@ let listeJeux = [{
     "titre": "F1 2018",
     "url": 'https://media.rawg.io/media/resize/420/-/screenshots/660/6600035ca7ccc80832543cab61bbbfbf.jpg',
     "idCategorie": 8,
-    "plateformes": ["pc", "xbox", "ps"]
+    "plateformes": ["pc", "xbox", "ps"] 
 },
 {
     "id": 2,
@@ -71,9 +71,9 @@ let listeJeux = [{
     "idCategorie": 9,
     "plateformes": ["xbox", "ps"]
 }
-]
+] */
 
-let listeCategorie = [
+/* let listeCategorie = [
 
     {
         "idCategorie": 1,
@@ -140,9 +140,9 @@ let listeCategorie = [
         "nom": "JeuSociete",
         "url": 'https://cherry.img.pmdstatic.net/fit/https.3A.2F.2Fimg.2Egaming.2Egentside.2Ecom.2Fs3.2Ffrgsg.2F1280.2Floisirs.2Fdefault_2022-05-03_94f263c1-eb26-41b1-8afe-804fe2b79934.2Ejpeg/1200x675/quality/80/ces-5-jeux-de-societe-tires-de-jeux-video-rappelleront-votre-enfance.jpg'
     }
-]
+] */
 
-let listePlateformes = [{
+/* let listePlateformes = [{
     "identification": "ps",
     "nom": "PlayStation",
     "url": 'https://i.ebayimg.com/images/g/5cMAAOSw6jNawVZQ/s-l1600.jpg'
@@ -163,7 +163,7 @@ let listePlateformes = [{
     "url": 'https://t4.ftcdn.net/jpg/03/66/54/65/360_F_366546568_3M67BtDiUJVeYB6RSeGURK3HTvRWd8YW.jpg'
 },
 
-]
+] */
 const buttonAjouter = document.querySelector("#buttonNewJeu");
 let tempCategorie = "";         // Variable temporaire pour stocker l'information sur la categorie choisie afin de filtrer le contenu
 let tempPlateforme = "";        // Variable temporaire pour stocker l'information sur la plateforme choisie afin de filtrer le contenu
@@ -203,11 +203,11 @@ let afficherJeux = function (objet, listePlateformes) {
         const imageDuJeu = document.querySelector("#imageDuJeu");
         const categorieJeu = document.querySelector("#categorieNewJeu");
         nomDuJeu.value = objet.titre;
-        imageDuJeu.value = objet.url;
-        categorieJeu.value = objet.idCategorie;
+        imageDuJeu.value = objet.url_image;
+        categorieJeu.value = objet.id_categorie;
         resetCheckbox();
         for (p of objet.plateformes) {
-            const checkboxPlat = document.querySelector(`#${p}`);
+            const checkboxPlat = document.querySelector(`#checkbox${p}`);
             checkboxPlat.checked = true;
         }
 
@@ -226,16 +226,16 @@ let afficherJeux = function (objet, listePlateformes) {
 
     for (let i = 0; i < objet.plateformes.length; i++) {
         for (let j = 0; j < listePlateformes.length; j++) {
-            if (objet.plateformes[i] === listePlateformes[j].identification) {
+            if (objet.plateformes[i] === listePlateformes[j].id) {
                 const image = document.createElement("img");
-                image.src = listePlateformes[j].url;
+                image.src = listePlateformes[j].url_icone;
                 plateformes.append(image);
             }
         }
     }
 
     titre.textContent = objet.titre;
-    img.src = objet.url;
+    img.src = objet.url_image;
 
     jeux.append(jeuHeader, img, plateformes);
 
@@ -246,7 +246,7 @@ let setPlateformes = function (Jeu) {
     Jeu.plateformes = [];
     checkPlat.forEach((input) => {
         if (input.checked) {
-            Jeu.plateformes.push(input.getAttribute("id"));
+            Jeu.plateformes.push(parseInt(input.getAttribute("id").substring(8)));
         }
     })
     return Jeu.plateformes.length > 0;
@@ -266,8 +266,8 @@ buttonModifier.addEventListener('click', function () {
             return;
         }
         objet.titre = nomDuJeu.value;
-        objet.idCategorie = categorieJeu.value;
-        objet.url = imageDuJeu.value;
+        objet.id_categorie = categorieJeu.value;
+        objet.url_image = imageDuJeu.value;
         formJeu.classList.replace("jeuform", "formcache");
         backdrop.classList.replace("backdrop", "backdrophidden");
         effacerForm();
@@ -320,10 +320,9 @@ for (let i = 0; i < listeJeux.length; i++) {
 
 let formCategories = function () {
     for (c of listeCategorie) {
-        console.log(c);
         const categorieForm = document.createElement("option");
-        categorieForm.setAttribute("value", c.idCategorie);
-        categorieForm.textContent = c.nom;
+        categorieForm.setAttribute("value", c.id);
+        categorieForm.textContent = c.titre;
         categorieJeu.append(categorieForm);
     }
 }
@@ -334,25 +333,25 @@ formCategories();
 
 
 
-let afficherCategorie = function (categorie, idCategorie) {
+let afficherCategorie = function (categorie) {
 
     const element = document.createElement("li");
 
     const image = document.createElement("img");
     const a = document.createElement("a");
 
-    a.textContent = categorie.nom;
-    a.href = "index.html?" + categorie.nom;
-    a.setAttribute("id", "categorie" + idCategorie);
+    a.textContent = categorie.titre;
+    a.href = "index.php?" + categorie.titre;
+    a.setAttribute("id", "categorie" + categorie.id);
     a.addEventListener('click', function (event) {
         event.preventDefault();
-        tempCategorie = idCategorie;
+        tempCategorie = categorie.id;
         filtrer(listeJeux, tempCategorie, tempPlateforme);
-        const l1 = "index.html?" + categorie.nom;
+        const l1 = "index.php?" + categorie.titre;
         history.pushState(null, null, l1);
 
     });
-    image.src = categorie.url;
+    image.src = categorie.url_image;
 
 
     element.append(a, image);
@@ -364,7 +363,7 @@ const liste = document.createElement("ul");
 document.querySelector("nav").append(liste);
 liste.setAttribute("class", "categorie");
 for (let i = 0; i < listeCategorie.length; i++) {
-    afficherCategorie(listeCategorie[i], i + 1);
+    afficherCategorie(listeCategorie[i]);
 }
 
 let filtrer = function (listeJeu, idCat, idPlateforme) {
@@ -373,8 +372,8 @@ let filtrer = function (listeJeu, idCat, idPlateforme) {
         jeu.remove();
     });
     for (let i = 0; i < listeJeu.length; i++) {
-        const checkCat = idCat == "" || listeJeux[i].idCategorie == idCat;
-        const checkPlateforme = idPlateforme == "" || listeJeux[i].plateformes.includes(idPlateforme);
+        const checkCat = idCat == "" || listeJeux[i].id_categorie == idCat;
+        const checkPlateforme = idPlateforme == "" || listeJeux[i].plateformes.includes(parseInt(idPlateforme));
         if (checkCat && checkPlateforme && listeJeux[i].titre != "") {
             const article = afficherJeux(listeJeux[i], listePlateformes);
             document.querySelector(".liste").appendChild(article);
@@ -395,22 +394,22 @@ choixToutes.textContent = "--Toutes--";
 for (let i = 0; i < listePlateformes.length; i++) {
     const choix = document.createElement("option");
     choixPlateforme.append(choix);
-    choix.setAttribute("value", listePlateformes[i].identification);
-    choix.textContent = listePlateformes[i].nom;
+    choix.setAttribute("value", listePlateformes[i].id);
+    choix.textContent = listePlateformes[i].titre;
 }
 
 
 const formulaireJeu = document.querySelector("#formulaireJeu");
 for (let p = 0; p < listePlateformes.length; p++) {
     const platLabel = document.createElement("label");
-    platLabel.setAttribute("for", listePlateformes[p].identification);
-    platLabel.textContent = listePlateformes[p].nom;
+    platLabel.setAttribute("for", "checkbox" + listePlateformes[p].id);
+    platLabel.textContent = listePlateformes[p].titre;
     const checkboxPlateforme = document.createElement("input");
     const divPlat = document.createElement("div");
     divPlat.setAttribute("class", "divPlat");
     checkboxPlateforme.setAttribute("type", "checkbox");
-    checkboxPlateforme.setAttribute("id", listePlateformes[p].identification);
-    checkboxPlateforme.setAttribute("name", listePlateformes[p].identification);
+    checkboxPlateforme.setAttribute("id", "checkbox" + listePlateformes[p].id);
+    checkboxPlateforme.setAttribute("name", listePlateformes[p].titre);
     divPlat.append(platLabel, checkboxPlateforme);
     buttonAjouter.parentNode.insertBefore(divPlat, buttonAjouter);
 
@@ -443,12 +442,11 @@ ajouter.addEventListener('click', function () {
 
 buttonAjouter.addEventListener('click', function () {
     const nouveauJeuForm = document.querySelector(".jeuform");
-    let nomsJeux = [];
     let nouveauJeu = {
         "id": 0,
         "titre": "",
-        "url": "",
-        "idCategorie": 0,
+        "url_image": "",
+        "id_categorie": 0,
         "plateformes": []
     }
 
@@ -462,13 +460,14 @@ buttonAjouter.addEventListener('click', function () {
     }
     nouveauJeu.titre = nomDuJeu.value;
     nouveauJeu.id = listeJeux.length;
-    nouveauJeu.url = imageDuJeu.value;
-    nouveauJeu.idCategorie = categorieJeu.value;
+    nouveauJeu.url_image = imageDuJeu.value;
+    nouveauJeu.id_categorie = categorieJeu.value;
     if (!setPlateformes(nouveauJeu)) {
         alert("Selectionnez au moins une plateforme!");
         return;
     };
     listeJeux.push(nouveauJeu);
+    console.log(nouveauJeu);
     nouveauJeuForm.classList.replace("jeuform", "formcache");
     backdrop.classList.replace("backdrop", "backdrophidden");
     filtrer(listeJeux, tempCategorie, tempPlateforme);
