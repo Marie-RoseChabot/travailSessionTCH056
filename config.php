@@ -13,7 +13,7 @@ $gPublic = True;
 }
 
 if(isset($_GET["deconnexion"])){
-    unset($_SESSION['usager']);
+    session_unset();
     header("Location: ".$_SERVER['PHP_SELF']);
     exit;
 } 
