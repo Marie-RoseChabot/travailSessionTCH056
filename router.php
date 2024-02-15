@@ -26,7 +26,7 @@ function patch($route, $path_to_include)
 }
 function delete($route, $path_to_include)
 {
-	if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 		route($route, $path_to_include);
 	}
 }
