@@ -24,7 +24,7 @@ let afficherJeux = function (objet, listePlateformes) {
     const iconeSup = document.createElement("img");
     iconeSup.classList.add("iconesModif");
     iconeSup.src = "./images/remove.png";
-    iconeSup.id = listeJeux.indexOf(objet);
+    iconeSup.id = objet.id;
     iconeSup.addEventListener('click', function () {
         const message = document.querySelector('.messageConfirmation');
         backdrop.classList.replace("backdrophidden", "backdrop");
@@ -306,7 +306,29 @@ buttonAjouter.addEventListener('click', function () {
         return;
     };
     listeJeux.push(nouveauJeu);
-    console.log(nouveauJeu);
+
+
+
+    fetch('/api/jeux/ajouter', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(nouveauJeu),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur reçue du serveur' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error('Il y a eu une erreur:', error.message));
+
+
+
     nouveauJeuForm.classList.replace("jeuform", "formcache");
     backdrop.classList.replace("backdrop", "backdrophidden");
     filtrer(listeJeux, tempCategorie, tempPlateforme);
@@ -328,7 +350,7 @@ console.log(typeUsager);
 console.log(gUserId);
 const buttonsSupMod = document.querySelectorAll(".buttonsAdmin");
 console.log(buttonsSupMod);
-if (gUserId > 0){
+if (gUserId > 0) {
     buttonAutent.classList.replace("autent", "autentCache");
     buttonDeccon.classList.replace("deconnCache", "deconn");
 }
@@ -336,21 +358,21 @@ else {
     buttonAutent.classList.replace("autentCache", "autent");
     buttonDeccon.classList.replace("deconn", "deconnCache");
     ajouter.classList.replace("ajouterNouveauJeu", "ajouterNouveauJeuCache");
-    buttonsSupMod.forEach((button)=>{
+    buttonsSupMod.forEach((button) => {
         button.classList.replace("buttonsSupMod", "buttonsSupModCache");
     })
 }
 
 
-if (typeUsager == "admin"){
+if (typeUsager == "admin") {
     ajouter.classList.replace("ajouterNouveauJeuCache", "ajouterNouveauJeu");
-    buttonsSupMod.forEach((button)=>{
+    buttonsSupMod.forEach((button) => {
         button.classList.replace("buttonsSupModCache", "buttonsSupMod");
     })
 }
 else {
     ajouter.classList.replace("ajouterNouveauJeu", "ajouterNouveauJeuCache");
-    buttonsSupMod.forEach((button)=>{
+    buttonsSupMod.forEach((button) => {
         button.classList.replace("buttonsSupMod", "buttonsSupModCache");
     })
 }

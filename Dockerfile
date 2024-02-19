@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
+RUN a2enmod rewrite
+
 # Copy application source
 COPY . /var/www/html/
 

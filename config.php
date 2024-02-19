@@ -15,7 +15,7 @@ $gPublic = True;
 
 if(isset($_GET["deconnexion"])){
     session_unset();
-    header("Location: ".$_SERVER['PHP_SELF']);
+    header("Location: index.php");
     exit;
 } 
 

@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__.'/../config.php';
-//$idJeu = $_GET['id'];
+require_once __DIR__.'/../../config.php';
 
 if(isset($id) && filter_var($id, FILTER_VALIDATE_INT)){
     $stmt = $pdo->prepare("SELECT * FROM `jeux` WHERE `id` = :idJeu");
