@@ -33,7 +33,7 @@ let afficherJeux = function (objet, listePlateformes) {
     });
     iconeMod.addEventListener('click', function () {
 
-        elementChoisi = listeJeux.indexOf(objet);
+        elementChoisi = objet.id;
         const formJeu = document.querySelector(".formcache");
         formJeu.classList.replace("formcache", "jeuform");
         backdrop.classList.replace("backdrophidden", "backdrop");
@@ -95,7 +95,8 @@ const buttonModifier = document.querySelector("#buttonModifier");
 buttonModifier.addEventListener('click', function () {
     if (categorieJeu.value != 0) {
         const formJeu = document.querySelector(".jeuform");
-        let objet = listeJeux[elementChoisi];
+        let objet = listeJeux.find(obj => obj.id === elementChoisi);
+
         if (!setPlateformes(objet)) {
             alert("Selectionnez au moins une plateforme!");
             return;
@@ -105,8 +106,26 @@ buttonModifier.addEventListener('click', function () {
             return;
         }
         objet.titre = nomDuJeu.value;
-        objet.id_categorie = categorieJeu.value;
         objet.url_image = imageDuJeu.value;
+        objet.id_categorie = categorieJeu.value;
+        let idJeuModif = objet.id;
+        fetch(`/api/jeux/modifier/${idJeuModif}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(objet),
+        })  
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur reçue du serveur' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => console.error('Il y a eu une erreur:', error.message));
         formJeu.classList.replace("jeuform", "formcache");
         backdrop.classList.replace("backdrop", "backdrophidden");
         effacerForm();
@@ -315,7 +334,7 @@ buttonAjouter.addEventListener('click', function () {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(nouveauJeu),
-    })
+    })  
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur reçue du serveur' + response.statusText);
@@ -346,10 +365,8 @@ let effacerForm = function () {
     url.value = "";
 }
 
-console.log(typeUsager);
-console.log(gUserId);
+
 const buttonsSupMod = document.querySelectorAll(".buttonsAdmin");
-console.log(buttonsSupMod);
 if (gUserId > 0) {
     buttonAutent.classList.replace("autent", "autentCache");
     buttonDeccon.classList.replace("deconnCache", "deconn");

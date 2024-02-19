@@ -50,6 +50,7 @@ else {
   <body>
     <div class="backdrophidden"></div>
     <form class="formcache">
+      <input type="hidden" id="idJeuCache" name="idJeuCache">
       <label for="nomDuJeu">Nom:</label><br>
       <input type="text" id="nomDuJeu" name="nomDuJeu"><br>
       <label for="imageDuJeu">Image:</label><br>
