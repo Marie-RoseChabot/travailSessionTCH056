@@ -16,3 +16,4 @@ post('/login', 'login.php');
 get('/api/jeux/$id', '/api/jeux/getJeu.php');
 post('/api/jeux/ajouter', '/api/jeux/ajouterJeu.php');
 put('/api/jeux/modifier/$id', '/api/jeux/modifierJeu.php');
+delete('/api/jeux/supprimer/$id', '/api/jeux/supprimerJeu.php');

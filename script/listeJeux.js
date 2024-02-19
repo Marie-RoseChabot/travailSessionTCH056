@@ -115,7 +115,7 @@ buttonModifier.addEventListener('click', function () {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(objet),
-        })  
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erreur reçue du serveur' + response.statusText);
@@ -148,7 +148,30 @@ let resetCheckbox = function () {
 
 const confirmationOui = document.querySelector("#confirmationOui");
 confirmationOui.addEventListener('click', function () {
-    listeJeux.splice(tempElement, 1);
+
+    let jeuSup = listeJeux.find(jeuS => jeuS.id === tempElement);
+    let idJeuSup = listeJeux.indexOf(jeuSup);
+    listeJeux.splice(idJeuSup, 1);
+
+
+    fetch(`/api/jeux/supprimer/${tempElement}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur reçue du serveur' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error('Il y a eu une erreur:', error.message));
+
+
     backdrop.classList.replace("backdrop", "backdrophidden");
     const message = document.querySelector('.messageAff');
     message.classList.replace("messageAff", "messageConfirmation");
@@ -334,7 +357,7 @@ buttonAjouter.addEventListener('click', function () {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(nouveauJeu),
-    })  
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur reçue du serveur' + response.statusText);
