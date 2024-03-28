@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__.'/config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,24 +50,35 @@
 
     <div class="conteneur">
         <header class="zone-page entete">
-        <img src="./images/game-controller.png" alt="en-tete">
-        <button type="button" id="ajouterJeu">Ajouter un jeu</button>
-        <a href="index.html?authentification">Autenthification</a>
+        <h1> INSCRIPTION </h1>  
 
-        </header>
-        <nav>
-        
-		
-        </nav>
+     
+        <div class="principal">    
+ <section id="authentification" class="login">
+        <h2>Authentification</h2>
+        <?php if($error): ?>
+            <div class="alert alert-danger"><?= $error ?></div>
+        <?php endif; ?>
 
-        <main>
-        
-       
-        <div class="principal">      
-            
-            <div class="deroulant">
-            <label for="deroulant">Plateforme:</label>
+<form id="loginForm" class="form-group" action='./login.php' method='post'>
+          <label for="username">Nom d'utilisateur:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            required
+          />
+          <br>
 
+          <label for="password">Mot de passe:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            required
+          />
             <select name="deroulant" id="deroulant">
             </select>
         </div>
@@ -183,7 +198,15 @@
             </div>
         </article>
 
-        <div class="liste">
+          <button type="submit" class="btn btn-primary mt-2 .align-top">
+            Se connecter
+          </button> <button class="btn btn-secondary mt-2" onclick = "window.location.href='./nouvelUsager.php';">Créer un compte</button>
+          
+        </form>
+      </section>
+  
+            
+            
            
     </div>
         
@@ -281,3 +304,5 @@
     <div class="bottom-line">Marie-Rose Chabot et Tymofii Niemchenko</div>
 	</body>
 </html>
+
+

@@ -1,3 +1,75 @@
+const buttonAjouter = document.querySelector("#buttonNewJeu");
+let tempCategorie = "";         // Variable temporaire pour stocker l'information sur la categorie choisie afin de filtrer le contenu
+let tempPlateforme = "";        // Variable temporaire pour stocker l'information sur la plateforme choisie afin de filtrer le contenu
+let tempElement = "";
+let elementChoisi = "";
+const nomDuJeu = document.querySelector("#nomDuJeu");
+const imageDuJeu = document.querySelector("#imageDuJeu");
+const categorieJeu = document.querySelector("#categorieNewJeu");
+const buttonAutent = document.querySelector("#autentification");
+const buttonDeccon = document.querySelector("#deconnexion");
+const ajouter = document.querySelector("#ajouterJeu");
+
+
+let afficherJeux = function (objet, listePlateformes) {
+
+    const jeux = document.createElement("article");
+    jeux.classList.add('jeux');
+    const jeuHeader = document.createElement("div");
+    jeuHeader.classList.add("jeuHeader");
+    const titre = document.createElement("h2");
+    const iconeMod = document.createElement("img");
+    iconeMod.src = "./images/editing.png";
+    iconeMod.classList.add("iconesModif");
+    const iconeSup = document.createElement("img");
+    iconeSup.classList.add("iconesModif");
+    iconeSup.src = "./images/remove.png";
+    iconeSup.id = listeJeux.indexOf(objet);
+    iconeSup.addEventListener('click', function () {
+        const message = document.querySelector('.messageConfirmation');
+        backdrop.classList.replace("backdrophidden", "backdrop");
+        message.classList.replace("messageConfirmation", "messageAff");
+        tempElement = iconeSup.id;
+    });
+    iconeMod.addEventListener('click', function () {
+
+        elementChoisi = listeJeux.indexOf(objet);
+        const formJeu = document.querySelector(".formcache");
+        formJeu.classList.replace("formcache", "jeuform");
+        backdrop.classList.replace("backdrophidden", "backdrop");
+        const nomDuJeu = document.querySelector("#nomDuJeu");
+        const imageDuJeu = document.querySelector("#imageDuJeu");
+        const categorieJeu = document.querySelector("#categorieNewJeu");
+        nomDuJeu.value = objet.titre;
+        imageDuJeu.value = objet.url_image;
+        categorieJeu.value = objet.id_categorie;
+        resetCheckbox();
+        for (p of objet.plateformes) {
+            const checkboxPlat = document.querySelector(`#checkbox${p}`);
+            checkboxPlat.checked = true;
+        }
+
+    });
+
+
+
+
+    const buttons = document.createElement("div");
+    buttons.setAttribute("class", "buttonsSupMod buttonsAdmin");
+    buttons.append(iconeSup, iconeMod);
+    jeuHeader.append(titre, buttons);
+    const img = document.createElement("img");
+    const plateformes = document.createElement("div");
+    plateformes.classList.add('plateformes');
+
+
+    for (let i = 0; i < objet.plateformes.length; i++) {
+        for (let j = 0; j < listePlateformes.length; j++) {
+            if (objet.plateformes[i] === listePlateformes[j].id) {
+                const image = document.createElement("img");
+                image.src = listePlateformes[j].url_icone;
+                plateformes.append(image);
+            }
 let listeJeux = [{
     "id": 0,
     "titre": "Fifa",
@@ -211,8 +283,11 @@ let afficherJeux = function (objet, listePlateformes) {
             checkboxPlat.checked = true;
         }
 
+    titre.textContent = objet.titre;
+    img.src = objet.url_image;
     });
 
+    jeux.append(jeuHeader, img, plateformes);
 
 
 
@@ -246,6 +321,7 @@ let setPlateformes = function (Jeu) {
     Jeu.plateformes = [];
     checkPlat.forEach((input) => {
         if (input.checked) {
+            Jeu.plateformes.push(parseInt(input.getAttribute("id").substring(8)));
             Jeu.plateformes.push(input.getAttribute("id"));
         }
     })
@@ -266,6 +342,8 @@ buttonModifier.addEventListener('click', function () {
             return;
         }
         objet.titre = nomDuJeu.value;
+        objet.id_categorie = categorieJeu.value;
+        objet.url_image = imageDuJeu.value;
         objet.idCategorie = categorieJeu.value;
         objet.url = imageDuJeu.value;
         formJeu.classList.replace("jeuform", "formcache");
@@ -320,6 +398,9 @@ for (let i = 0; i < listeJeux.length; i++) {
 
 let formCategories = function () {
     for (c of listeCategorie) {
+        const categorieForm = document.createElement("option");
+        categorieForm.setAttribute("value", c.id);
+        categorieForm.textContent = c.titre;
         console.log(c);
         const categorieForm = document.createElement("option");
         categorieForm.setAttribute("value", c.idCategorie);
@@ -336,6 +417,16 @@ formCategories();
 
 let afficherCategorie = function (categorie, idCategorie) {
 
+let afficherCategorie = function (categorie) {
+
+    const element = document.createElement("li");
+
+    const image = document.createElement("img");
+    const a = document.createElement("a");
+
+    a.textContent = categorie.titre;
+    a.href = "index.php?" + categorie.titre;
+    a.setAttribute("id", "categorie" + categorie.id);
     const element = document.createElement("li");
 
     const image = document.createElement("img");
@@ -346,8 +437,13 @@ let afficherCategorie = function (categorie, idCategorie) {
     a.setAttribute("id", "categorie" + idCategorie);
     a.addEventListener('click', function (event) {
         event.preventDefault();
-        tempCategorie = idCategorie;
+        tempCategorie = categorie.id;
         filtrer(listeJeux, tempCategorie, tempPlateforme);
+        const l1 = "index.php?" + categorie.titre;
+        history.pushState(null, null, l1);
+
+    });
+    image.src = categorie.url_image;
         const l1 = "index.html?" + categorie.nom;
         history.pushState(null, null, l1);
 
@@ -364,6 +460,7 @@ const liste = document.createElement("ul");
 document.querySelector("nav").append(liste);
 liste.setAttribute("class", "categorie");
 for (let i = 0; i < listeCategorie.length; i++) {
+    afficherCategorie(listeCategorie[i]);
     afficherCategorie(listeCategorie[i], i + 1);
 }
 
@@ -373,6 +470,8 @@ let filtrer = function (listeJeu, idCat, idPlateforme) {
         jeu.remove();
     });
     for (let i = 0; i < listeJeu.length; i++) {
+        const checkCat = idCat == "" || listeJeux[i].id_categorie == idCat;
+        const checkPlateforme = idPlateforme == "" || listeJeux[i].plateformes.includes(parseInt(idPlateforme));
         const checkCat = idCat == "" || listeJeux[i].idCategorie == idCat;
         const checkPlateforme = idPlateforme == "" || listeJeux[i].plateformes.includes(idPlateforme);
         if (checkCat && checkPlateforme && listeJeux[i].titre != "") {
@@ -395,8 +494,25 @@ choixToutes.textContent = "--Toutes--";
 for (let i = 0; i < listePlateformes.length; i++) {
     const choix = document.createElement("option");
     choixPlateforme.append(choix);
-    choix.setAttribute("value", listePlateformes[i].identification);
-    choix.textContent = listePlateformes[i].nom;
+    choix.setAttribute("value", listePlateformes[i].id);
+    choix.textContent = listePlateformes[i].titre;
+}
+
+
+const formulaireJeu = document.querySelector("#formulaireJeu");
+for (let p = 0; p < listePlateformes.length; p++) {
+    const platLabel = document.createElement("label");
+    platLabel.setAttribute("for", "checkbox" + listePlateformes[p].id);
+    platLabel.textContent = listePlateformes[p].titre;
+    const checkboxPlateforme = document.createElement("input");
+    const divPlat = document.createElement("div");
+    divPlat.setAttribute("class", "divPlat");
+    checkboxPlateforme.setAttribute("type", "checkbox");
+    checkboxPlateforme.setAttribute("id", "checkbox" + listePlateformes[p].id);
+    checkboxPlateforme.setAttribute("name", listePlateformes[p].titre);
+    divPlat.append(platLabel, checkboxPlateforme);
+    buttonAjouter.parentNode.insertBefore(divPlat, buttonAjouter);
+
 }
 
 
@@ -432,6 +548,7 @@ backdrop.addEventListener('click', function (event) {
         effacerForm();
     }
 });
+
 const ajouter = document.querySelector("#ajouterJeu");
 ajouter.addEventListener('click', function () {
     const formJeu = document.querySelector(".formcache");
@@ -443,6 +560,11 @@ ajouter.addEventListener('click', function () {
 
 buttonAjouter.addEventListener('click', function () {
     const nouveauJeuForm = document.querySelector(".jeuform");
+    let nouveauJeu = {
+        "id": 0,
+        "titre": "",
+        "url_image": "",
+        "id_categorie": 0,
     let nomsJeux = [];
     let nouveauJeu = {
         "id": 0,
@@ -462,6 +584,8 @@ buttonAjouter.addEventListener('click', function () {
     }
     nouveauJeu.titre = nomDuJeu.value;
     nouveauJeu.id = listeJeux.length;
+    nouveauJeu.url_image = imageDuJeu.value;
+    nouveauJeu.id_categorie = categorieJeu.value;
     nouveauJeu.url = imageDuJeu.value;
     nouveauJeu.idCategorie = categorieJeu.value;
     if (!setPlateformes(nouveauJeu)) {
@@ -469,6 +593,7 @@ buttonAjouter.addEventListener('click', function () {
         return;
     };
     listeJeux.push(nouveauJeu);
+    console.log(nouveauJeu);
     nouveauJeuForm.classList.replace("jeuform", "formcache");
     backdrop.classList.replace("backdrop", "backdrophidden");
     filtrer(listeJeux, tempCategorie, tempPlateforme);
@@ -484,4 +609,35 @@ let effacerForm = function () {
     resetCheckbox();
     title.value = "";
     url.value = "";
+}
+
+console.log(typeUsager);
+console.log(gUserId);
+const buttonsSupMod = document.querySelectorAll(".buttonsAdmin");
+console.log(buttonsSupMod);
+if (gUserId > 0){
+    buttonAutent.classList.replace("autent", "autentCache");
+    buttonDeccon.classList.replace("deconnCache", "deconn");
+}
+else {
+    buttonAutent.classList.replace("autentCache", "autent");
+    buttonDeccon.classList.replace("deconn", "deconnCache");
+    ajouter.classList.replace("ajouterNouveauJeu", "ajouterNouveauJeuCache");
+    buttonsSupMod.forEach((button)=>{
+        button.classList.replace("buttonsSupMod", "buttonsSupModCache");
+    })
+}
+
+
+if (typeUsager == "admin"){
+    ajouter.classList.replace("ajouterNouveauJeuCache", "ajouterNouveauJeu");
+    buttonsSupMod.forEach((button)=>{
+        button.classList.replace("buttonsSupModCache", "buttonsSupMod");
+    })
+}
+else {
+    ajouter.classList.replace("ajouterNouveauJeu", "ajouterNouveauJeuCache");
+    buttonsSupMod.forEach((button)=>{
+        button.classList.replace("buttonsSupMod", "buttonsSupModCache");
+    })
 }
