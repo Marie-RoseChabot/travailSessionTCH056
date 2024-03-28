@@ -10,26 +10,39 @@
     flex-direction: column;
 
     border-radius: 0.5rem;
-    background-color: #a79e84;
-
-
 }
 
 .jeux img{
-height: 70%;
-width: 95%; 
+height: 65%;
+max-width: 100%; 
 margin:0px;
 justify-content: start;
-padding: 0.1rem;
-background-color: inherit;
+padding: 0.2rem;
+}
+.jeuHeader{
+    display: flex;
+    margin: 0.2rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.jeuHeader div{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 1rem;
+}
+.jeuHeader img{
+    width: 0.6rem;
+    height: 0.6rem;
+    margin: 0;
 }
 
 .plateformes img{
-    height: 75%;
-    width: 20%;
-    margin:0px;
-    justify-content: end;
-    background-color: inherit;
+    height: 2rem;
+    width: 2rem;
+    margin:0.1rem;
+    justify-self: end;
+    padding: 0.1rem;
 }
 
 
@@ -41,23 +54,27 @@ background-color: inherit;
 
 
 nav li img{
-height: 100%;
-width: 10%;
+height: 1.6rem;
+width: 1.6rem;
 margin: 1px;
 padding: 0.1rem;
 }
 nav ul{
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 nav li {
 height: 25px;
 width: 250px;
 display: flex;
 text-align: center;
-justify-content: start;
+margin: 0.1rem;
 }
-nav li>a {
-    color:azure;
+nav a{
+    display: block;
+    width: 10rem;
+    text-decoration: none;
 
 }
 
@@ -80,24 +97,20 @@ div.conteneur{
     
     justify-content: space-between; 
     align-items: center;
-    background-color: #454140;
 }
 
 .entete img{
     width: 2.5rem;
 }
-.entete a{
-    color: azure;
-}
 
-nav{
+nav {
     grid-area: menu;
     display:flex;
     flex-direction:column;
     align-content:stretch;
-    border-right: 0.1rem solid;
-    background-color: #454140;  
+    border-right: 0.1rem solid;;  
 }
+
 
 .liste{
     display: flex;
@@ -109,8 +122,7 @@ nav{
     grid-area: principal;
     display: flex;
     flex-direction: column;
-    background-color: #7a3b2e;
-    min-height: 100vh;    
+     
    
 }
 
@@ -122,14 +134,64 @@ nav{
     flex-direction: row;
     justify-content: center;
     border-top: 0.1rem solid;
-    background-color: #454140;
-    color: azure;
-    border-color: black;
+}
+.backdrop{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: block;
+}
+.backdrophidden {
+    display: none;
+}
+.jeuform {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border-radius: 0.5rem;
+    z-index: 1;
+    padding: 1.5rem;
+    background-color: white;
+    transform: translate(-50%,-50%);
+}
+.messageAff {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border-radius: 0.5rem;
+    z-index: 1;
+    padding: 1.5rem;
+    background-color: white;
+    transform: translate(-50%,-50%);
+}
+.formcache {
+    display: none;
+}
+.iconesModif {
+    display: none;
+}
+.jeuHeader:hover .iconesModif{
+    display: block;
+}
+
+.messageConfirmation {
+    display: none;
+}
+.confirmationButtons {
+    display: flex;
+    justify-content: space-between;
+}
+.divPlat {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
 }
 .deroulant {
     color: azure;
 }
-=======
 body {
     display: grid;
     grid-template-rows: 25px auto;
