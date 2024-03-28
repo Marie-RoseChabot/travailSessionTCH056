@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php if($error): ?>
             <div class="alert alert-danger"><?= $error ?></div>
         <?php endif; ?>
-        <form id="loginForm" class="form-group" action='./login.php' method='post'>
+        <form id="loginForm" class="form-group" action='login' method='post'>
           <label for="username">Nom d'utilisateur:</label>
           <input
             type="text"
@@ -77,4 +77,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   </body>
 </html>
-s

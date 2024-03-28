@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $gPublic = True;
 
  if ((!isset($gPublic) || !$gPublic) &&  !isset($_SESSION["usager"])) {
@@ -14,7 +15,7 @@ $gPublic = True;
 
 if(isset($_GET["deconnexion"])){
     session_unset();
-    header("Location: ".$_SERVER['PHP_SELF']);
+    header("Location: index.php");
     exit;
 } 
 
@@ -36,4 +37,3 @@ try {
 } catch (\PDOException $e) {
     die("Erreur de connexion à la base de données: ".$e->getMessage());
 }
-
